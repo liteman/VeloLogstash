@@ -1,0 +1,55 @@
+# Settings for Logstash
+#
+# The settings in this file can be overridden by the command line parameters when you run Logstash.
+
+# The host and port for the HTTP API (to monitor Logstash via HTTP)
+http.host: "127.0.0.1"
+http.port: 9600
+
+# The host and port for Logstash to listen to beats input (default: 5044)
+#beats.input.port: 5044
+
+# The Logstash instance name. This is a unique identifier used in logging
+# and metrics. Leave it empty to have Logstash automatically assign a name.
+node.name: "logstash-node"
+
+# The path to the pipeline configurations (optional)
+path.config: "/usr/share/logstash/pipeline"
+
+# Directory for plugins, inputs, filters, and outputs
+path.plugins: ["/usr/share/logstash/plugins"]
+
+# The location of the logstash logs
+path.logs: "/var/log/logstash"
+pipeline.separate_logs: true
+
+# Maximum file size for each log file, default is 1GB (set to 0 to disable)
+log.level: "info"  # Options: fatal, error, warn, info, debug, trace
+log.format: "plain"  # Log format: plain or json
+
+# Persistent queues to enable durability of events when the output is unavailable
+queue.type: "persisted"  # Other option: "memory"
+queue.max_bytes: 1024mb
+
+# The number of worker threads to use for the pipeline processing
+pipeline.workers: 2  # Adjust based on your CPU resources
+
+# The batch size for how many events should be processed in each batch.
+pipeline.batch.size: 125
+
+# The timeout for handling events from input to output
+pipeline.batch.delay: 50  # in milliseconds
+
+# Enable or disable monitoring of pipelines. Default is true.
+xpack.monitoring.enabled: false
+
+# If you use the x-pack for security, monitoring, etc., enable it here.
+xpack.management.enabled: false
+
+# Enable or disable dead letter queue functionality
+dead_letter_queue.enable: true
+
+# Elasticsearch host and other settings related to the output (if using Elasticsearch)
+# output.elasticsearch.hosts: ["http://localhost:9200"]
+
+monitoring.enabled: false

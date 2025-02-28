@@ -1,0 +1,35 @@
+
+services:
+  
+  logstash:
+    build:
+      context: ./logstash  # Path to the directory containing the Logstash Dockerfile
+      dockerfile: Dockerfile  # Path to the Logstash Dockerfile if named differently
+    hostname: logstash-node
+    ports:
+      - "5044:5044"  # Expose Logstash Beats input port
+      - "9600:9600"  # Expose Logstash HTTP API port
+    networks:
+      - logstash-network
+    volumes:
+      - ./velopipe:/usr/share/logstash/pipelines
+
+  filebeat:
+    build:
+      context: ./filebeat  # Path to the directory containing the Filebeat Dockerfile
+      dockerfile: Dockerfile  # Path to the Filebeat Dockerfile if named differently
+    hostname: filebeat-node
+    volumes:
+      - ./input:/usr/share/filebeat/logs  # Adjust this path to your log files
+
+    environment:
+      - FILEBEAT_LOG_LEVEL=debug  # Optional: Adjust logging level if needed
+    networks:
+      - logstash-network
+    depends_on:
+      - logstash
+
+
+networks:
+  logstash-network:
+    driver: bridge

@@ -1,0 +1,24 @@
+filebeat.inputs:
+  - type: log
+    # Path to the directory you want to monitor for new JSONL files
+    paths:
+      - /usr/share/filebeat/logs/*.json
+    # Specify that the files are JSON Lines formatted
+    json:
+      keys_under_root: true  # Flatten the JSON structure and add it as top-level fields
+      add_error_key: true    # Add error key if there's a parsing error
+      multiline:
+        enabled: false       # JSONL files usually do not require multiline support
+        
+output.logstash:
+  # The Logstash server (could be an IP address or hostname)
+  hosts: ["logstash-node:5044"]  # Replace with your Logstash address and port
+
+
+# ============================== X-Pack Licensing ==============================
+
+# Enable features for the Elastic Stack (This configuration is typically for basic, trial, or commercial licenses)
+xpack.license.self_generated.type: basic  # Set the license type to 'basic' for open-source features
+
+# Optional: Enable security (user authentication) and other X-Pack features in case you are using them
+xpack.security.enabled: false  # Set to 'true' if security features like user authentication are enabled
