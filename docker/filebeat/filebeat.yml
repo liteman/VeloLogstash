@@ -9,6 +9,9 @@ filebeat.inputs:
       add_error_key: true    # Add error key if there's a parsing error
       multiline:
         enabled: false       # JSONL files usually do not require multiline support
+    
+    fields:
+      type: "velociraptor-json"
 
 processors:
   - add_tags:
