@@ -14,12 +14,14 @@ http.port: 9600
 node.name: "logstash-node"
 
 # The path to the pipeline configurations (optional)
-path.config: "/usr/share/logstash/pipeline"
+config.reload.automatic: true
+config.reload.interval: 5
 
 # Directory for plugins, inputs, filters, and outputs
 path.plugins: ["/usr/share/logstash/plugins"]
 
 # The location of the logstash logs
+#path.pipelines: "/usr/share/logstash/pipelines.yml"
 path.logs: "/var/log/logstash"
 pipeline.separate_logs: true
 
@@ -32,7 +34,7 @@ queue.type: "persisted"  # Other option: "memory"
 queue.max_bytes: 1024mb
 
 # The number of worker threads to use for the pipeline processing
-pipeline.workers: 2  # Adjust based on your CPU resources
+#pipeline.workers: 2  # Adjust based on your CPU resources
 
 # The batch size for how many events should be processed in each batch.
 pipeline.batch.size: 125
