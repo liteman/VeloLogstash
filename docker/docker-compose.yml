@@ -12,7 +12,7 @@ services:
     networks:
       - logstash-network
     volumes:
-      - /mnt/f/gitrepos/velo_logstash/docker/logstash/velopipe:/usr/share/logstash/pipelines
+      - ./logstash/velopipe:/usr/share/logstash/pipelines
 
   filebeat:
     build:
